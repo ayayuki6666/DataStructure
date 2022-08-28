@@ -23,15 +23,17 @@ public:
 };
 void printactInfo(actInfo* info)
 {
-    if (info == nullptr)
+    actInfo *temp;
+    temp = info;
+    if (temp == nullptr)
     {
         cout << "无活动信息" << endl;
     }
     else
-        while (info->next != NULL)
+        while (temp!= NULL)
         {
-            cout << info->actName << "\t" << info->actDate << "\t" << info->actScore << endl;
-            info = info->next;
+            cout << temp->actName << "\t" << temp->actDate << "\t" << temp->actScore << endl;
+            temp = temp->next;
         }
 }
 void addactInfo(actInfo* info)
@@ -172,15 +174,16 @@ public:
 };
 void printcorInfo(corInfo* info)
 {
-    if (info == nullptr)
+    corInfo* temp=info;
+    if (temp == nullptr)
     {
         cout << "无活动信息" << endl;
     }
     else
-        while (info->next != NULL)
+        while (temp != NULL)
         {
-            cout << info->corID << "\t" << info->corName << "\t" << info->corDate << "\t" << info->corTName << "\t" << info->credit << "\t" << info->finish << "\t" << info->credit << endl;
-            info = info->next;
+            cout << temp->corID << "\t" << temp->corName << "\t" << temp->corDate << "\t" << temp->corTName << "\t" << temp->credit << "\t" << temp->finish << "\t" << temp->credit << endl;
+            temp = temp->next;
         }
 }
 void addcorInfo(corInfo* info)
@@ -677,9 +680,9 @@ void CreatePer(inputPerInfo a[])
     inFile.open("01学生信息.txt");
     int i = 0;
     perInfo* temp ;
-    temp = new perInfo();
     while (!inFile.eof())
     {
+        temp = new perInfo();
         inFile >> a[i].SID;
         inFile >> temp->sName;
         inFile >> temp->major;
@@ -869,16 +872,18 @@ void choose(int input, AVLTree A)
         cout << "学号\t姓名\t专业\t联系方式\t性别" << endl;
         cout << temp->SID << "\t" << temp->infor1->sName << "\t" << temp->infor1->major << "\t" << temp->infor1->phoNum << "\t" << temp->infor1->gender << endl;
         cout << "课程编号\t课程名称\t任课老师\t选修时间\t学分\t完成情况\t成绩" << endl;
-        while (temp->infor3->next != NULL)
+        corInfo* tempCor = temp->infor3;
+        while (tempCor != NULL)
         {
-            cout << temp->infor3->corID << "\t" << temp->infor3->corName << "\t" << temp->infor3->corTName << "\t" << temp->infor3->corDate << "\t" << temp->infor3->credit << "\t" << temp->infor3->finish << "\t" << temp->infor3->corScore << endl;
-            temp->infor3 = temp->infor3->next;
+            cout << tempCor->corID << "\t" << tempCor->corName << "\t" << tempCor->corTName << "\t" << tempCor->corDate << "\t" << tempCor->credit << "\t" << tempCor->finish << "\t" << tempCor->corScore << endl;
+            tempCor = tempCor->next;
         }
         cout << "活动名称\t活动时间\t综测分" << endl;
-        while (temp->infor2->next != NULL)
+        actInfo* tempAct = temp->infor2;
+        while (tempAct != NULL)
         {
-            cout << temp->infor2->actName << "\t" << temp->infor2->actDate << "\t" << temp->infor2->actScore << endl;
-            temp->infor2 = temp->infor2->next;
+            cout << tempAct->actName << "\t" << tempAct->actDate << "\t" << tempAct->actScore << endl;
+            tempAct = tempAct->next;
         }
     }
     }
@@ -918,16 +923,20 @@ void choose(int input, AVLTree A)
             else
             {
                 cout << "课程编号\t课程名称\t任课老师\t选修时间\t学分\t完成情况\t成绩" << endl;
-                while (temp->infor3->next != NULL)
+                corInfo* tempCor;
+                tempCor = temp->infor3;
+                while (tempCor != NULL)
                 {
-                    cout << temp->infor3->corID << "\t" << temp->infor3->corName << "\t" << temp->infor3->corTName << "\t" << temp->infor3->corDate << "\t" << temp->infor3->credit << "\t" << temp->infor3->finish << "\t" << temp->infor3->corScore << endl;
-                    temp->infor3 = temp->infor3->next;
+                    cout << tempCor->corID << "\t" << tempCor->corName << "\t" << tempCor->corTName << "\t" << tempCor->corDate << "\t" << tempCor->credit << "\t" << tempCor->finish << "\t" << tempCor->corScore << endl;
+                    tempCor = tempCor->next;
                 }
                 cout << "活动名称\t活动时间\t综测分" << endl;
-                while (temp->infor2->next != NULL)
+                actInfo* tempAct;
+                tempAct = temp->infor2;
+                while (tempAct != NULL)
                 {
-                    cout << temp->infor2->actName << "\t" << temp->infor2->actDate << "\t" << temp->infor2->actScore << endl;
-                    temp->infor2 = temp->infor2->next;
+                    cout << tempAct->actName << "\t" << tempAct->actDate << "\t" << tempAct->actScore << endl;
+                    tempAct = tempAct->next;
                 }
             }
         }
