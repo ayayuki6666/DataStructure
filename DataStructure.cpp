@@ -367,6 +367,7 @@ void AVLTree::Preorder(AVLTreeNode* pNode)  //前序遍历
 {
     if (pNode != NULL)
     {
+        cout << pNode->SID;
         Preorder(pNode->pLeftChild);
         Preorder(pNode->pRightChild);
     }
@@ -885,60 +886,54 @@ void choose(int input, AVLTree A)
             cout << tempAct->actName << "\t" << tempAct->actDate << "\t" << tempAct->actScore << endl;
             tempAct = tempAct->next;
         }
-    }
+        }
     }
     //学生查询信息
     
     if (input == 21) {
-        cout << "输入学生学号或输入班级号";
+        cout << "输入学号或班级号" << endl;
         cin >> SID;
-        system("cls");
-        cout << "学号\t姓名\t专业\t联系方式\t性别" << endl;
-        if (SID < 1e5)
-        {
+        //temp = A.Search(A.pRoot, SID);
+        if (SID < 1e4) {
             int a = 0;
-            for (int i = 1; i < 1e2; i++)
+            for (int i = 1; i < 100; i++)
             {
                 a = i + SID * 100;
                 temp = A.Search(A.pRoot, a);
-                if (temp == NULL)
+                //cout << a<<endl;
+                if (temp != NULL)
                 {
-                    cout << "未找到对应用户" << endl;
-                    system("pause");
-                    return;
+                    cout << temp->SID << "\t" << temp->infor1->sName << "\t" << temp->infor1->major << "\t" << temp->infor1->phoNum << "\t" << temp->infor1->gender << endl;
                 }
-                else
-                cout << temp->SID << "\t" << temp->infor1->sName << "\t" << temp->infor1->major << "\t" << temp->infor1->phoNum << "\t" << temp->infor1->gender << endl;
             }
         }
-        else
+        else {
+        temp = A.Search(A.pRoot, SID);
+        if (temp == NULL)
         {
-            temp = A.Search(A.pRoot, SID);
-            if (temp == NULL)
+            cout << "未找到对应用户" << endl;
+            system("pause");
+            return;
+        }
+        else {
+            system("cls");
+            cout << "学号\t姓名\t专业\t联系方式\t性别" << endl;
+            cout << temp->SID << "\t" << temp->infor1->sName << "\t" << temp->infor1->major << "\t" << temp->infor1->phoNum << "\t" << temp->infor1->gender << endl;
+            cout << "课程编号\t课程名称\t任课老师\t选修时间\t学分\t完成情况\t成绩" << endl;
+            corInfo* tempCor = temp->infor3;
+            while (tempCor != NULL)
             {
-                cout << "未找到对应用户" << endl;
-                system("pause");
-                return;
+                cout << tempCor->corID << "\t" << tempCor->corName << "\t" << tempCor->corTName << "\t" << tempCor->corDate << "\t" << tempCor->credit << "\t" << tempCor->finish << "\t" << tempCor->corScore << endl;
+                tempCor = tempCor->next;
             }
-            else
+            cout << "活动名称\t活动时间\t综测分" << endl;
+            actInfo* tempAct = temp->infor2;
+            while (tempAct != NULL)
             {
-                cout << "课程编号\t课程名称\t任课老师\t选修时间\t学分\t完成情况\t成绩" << endl;
-                corInfo* tempCor;
-                tempCor = temp->infor3;
-                while (tempCor != NULL)
-                {
-                    cout << tempCor->corID << "\t" << tempCor->corName << "\t" << tempCor->corTName << "\t" << tempCor->corDate << "\t" << tempCor->credit << "\t" << tempCor->finish << "\t" << tempCor->corScore << endl;
-                    tempCor = tempCor->next;
-                }
-                cout << "活动名称\t活动时间\t综测分" << endl;
-                actInfo* tempAct;
-                tempAct = temp->infor2;
-                while (tempAct != NULL)
-                {
-                    cout << tempAct->actName << "\t" << tempAct->actDate << "\t" << tempAct->actScore << endl;
-                    tempAct = tempAct->next;
-                }
+                cout << tempAct->actName << "\t" << tempAct->actDate << "\t" << tempAct->actScore << endl;
+                tempAct = tempAct->next;
             }
+        }
         }
     }
     //班主任查询学生信息
@@ -988,29 +983,23 @@ void choose(int input, AVLTree A)
             temp->infor2=deleteactInfo(temp->infor2);
     }//班主任删除活动信息
     if (input == 31) {
-        cout << "输入学生学号或输入班级号";
+        cout << "输入学号或班级号" << endl;
         cin >> SID;
-        system("cls");
-        cout << "学号\t姓名\t专业\t联系方式\t性别" << endl;
-        if (SID < 1e5)
-        {
+        //temp = A.Search(A.pRoot, SID);
+        if (SID < 1e4) {
             int a = 0;
-            for (int i = 1; i < 1e2; i++)
+            for (int i = 1; i < 100; i++)
             {
                 a = i + SID * 100;
                 temp = A.Search(A.pRoot, a);
-                if (temp == NULL)
+                //cout << a<<endl;
+                if (temp != NULL)
                 {
-                    cout << "未找到对应用户" << endl;
-                    system("pause");
-                    return;
-                }
-                else
                     cout << temp->SID << "\t" << temp->infor1->sName << "\t" << temp->infor1->major << "\t" << temp->infor1->phoNum << "\t" << temp->infor1->gender << endl;
+                }
             }
         }
-        else
-        {
+        else {
             temp = A.Search(A.pRoot, SID);
             if (temp == NULL)
             {
@@ -1018,19 +1007,23 @@ void choose(int input, AVLTree A)
                 system("pause");
                 return;
             }
-            else
-            {
+            else {
+                system("cls");
+                cout << "学号\t姓名\t专业\t联系方式\t性别" << endl;
+                cout << temp->SID << "\t" << temp->infor1->sName << "\t" << temp->infor1->major << "\t" << temp->infor1->phoNum << "\t" << temp->infor1->gender << endl;
                 cout << "课程编号\t课程名称\t任课老师\t选修时间\t学分\t完成情况\t成绩" << endl;
-                while (temp->infor3->next != NULL)
+                corInfo* tempCor = temp->infor3;
+                while (tempCor != NULL)
                 {
-                    cout << temp->infor3->corID << "\t" << temp->infor3->corName << "\t" << temp->infor3->corTName << "\t" << temp->infor3->corDate << "\t" << temp->infor3->credit << "\t" << temp->infor3->finish << "\t" << temp->infor3->corScore << endl;
-                    temp->infor3 = temp->infor3->next;
+                    cout << tempCor->corID << "\t" << tempCor->corName << "\t" << tempCor->corTName << "\t" << tempCor->corDate << "\t" << tempCor->credit << "\t" << tempCor->finish << "\t" << tempCor->corScore << endl;
+                    tempCor = tempCor->next;
                 }
                 cout << "活动名称\t活动时间\t综测分" << endl;
-                while (temp->infor2->next != NULL)
+                actInfo* tempAct = temp->infor2;
+                while (tempAct != NULL)
                 {
-                    cout << temp->infor2->actName << "\t" << temp->infor2->actDate << "\t" << temp->infor2->actScore << endl;
-                    temp->infor2 = temp->infor2->next;
+                    cout << tempAct->actName << "\t" << tempAct->actDate << "\t" << tempAct->actScore << endl;
+                    tempAct = tempAct->next;
                 }
             }
         }
@@ -1151,13 +1144,13 @@ int main()
     inputCorInfo Cor[MAXSIZE];
     CreateCor(Cor);
     AVLTree* pTree = new AVLTree();
-    actInfo* temp1;
-    corInfo* temp2;
+    actInfo* temp1=NULL;
+    corInfo* temp2=NULL;
     for (int i = 0;i < MAXSIZE;i++)
     {
         int t;
-        t = Per->SID;
-        if (Per->SID == 0)
+        t = Per[i].SID;
+        if (Per[i].SID == 0)
         {
             break;
         }
@@ -1165,29 +1158,34 @@ int main()
         {
             for (int j = 0; j < MAXSIZE; j++)
             {
-                if (Act->SID == 0)
+                if (Act[j].SID == 0)
                 {
                     break;
                 }
-                else if (Act->SID == t)
+                else if (Act[j].SID == t)
                 {
-                    temp1 = Act->info;
-                    break;
+                    temp1 = Act[j].info;
+                }
+                else {
+                    temp1 = NULL;
                 }
             }
             for (int j = 0; j < MAXSIZE; j++)
             {
-                if (Cor->SID == 0)
+                if (Cor[j].SID == 0)
                 {
                     break;
                 }
-                else if (Cor->SID == t)
+                else if (Cor[j].SID == t)
                 {
-                    temp2 = Cor->info;
-                    break;
+                    temp2 = Cor[j].info;
+                }
+                else
+                {
+                    temp2 = NULL;
                 }
             }
-            pTree->Insert(pTree->pRoot, Per->SID, Per->info, Act->info, Cor->info);
+            pTree->pRoot=pTree->Insert(pTree->pRoot, Per[i].SID, Per[i].info, temp1, temp2);
         }
     }
     while (true)
