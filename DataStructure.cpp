@@ -70,6 +70,7 @@ void addactInfo(actInfo* info)
         info = temp;
         info->next = NULL;
     }
+    cout << "添加成功" << endl;
 }
 void changeactInfo(actInfo* info)
 {
@@ -94,6 +95,7 @@ void changeactInfo(actInfo* info)
         info->actName = actName;
         info->actDate = actDate;
         info->actScore = actScore;
+        cout << "修改成功" << endl;
     }
     else
     {
@@ -155,6 +157,7 @@ actInfo* deleteactInfo(actInfo* info)
             }
             return head;
         }
+        cout << "删除成功" << endl;
     }
     else
     {
@@ -232,6 +235,7 @@ void addcorInfo(corInfo* info)
         info = temp;
         info->next = NULL;
     }
+    cout << "添加成功" << endl;
 }
 void changecorInfo(corInfo* info)
 {
@@ -262,6 +266,7 @@ void changecorInfo(corInfo* info)
         info->credit = credit;
         info->finish = finish;
         info->corScore = corScore;
+        cout << "修改成功" << endl;
     }
     else
     {
@@ -346,6 +351,7 @@ corInfo* deletecorInfo(corInfo* info)
             }
             return head;
         }
+        cout << "删除成功" << endl;
     }
     else
     {
@@ -383,6 +389,7 @@ public:
     void Inorder(AVLTreeNode* pNode);
     void Postorder(AVLTreeNode* pNode);
     int GetHeight(AVLTreeNode* pNode);
+    int getvalue(AVLTreeNode* pNode);
 private:
     AVLTreeNode* LeftRotaion(AVLTreeNode* pNode);				
     AVLTreeNode* RightRotation(AVLTreeNode* pNode);				
@@ -440,11 +447,13 @@ void AVLTree::AddStudent(AVLTreeNode* pNode,int SID)
             cout << "活动名称\t活动时间\t\t综测分" << endl;
             cin >> temp3->actName >> temp3->actDate >> temp3->actScore;
             pNode = this->Insert(pNode, SID, temp1, temp3, temp2);
+            cout << "添加成功" << endl;
             break;
         }
         else if (a == 2)
         {
             pNode = this->Insert(pNode, SID, temp1, NULL, NULL);
+            cout << "添加成功" << endl;
             break;
         }
         else
@@ -610,6 +619,12 @@ AVLTreeNode* AVLTree::Search(AVLTreeNode* pNode, int SID)
     }
     return NULL;
 }
+int AVLTree::getvalue(AVLTreeNode* pNode) {
+    if (!pNode) {
+        return 0;
+    }
+    return getvalue(pNode->pLeftChild) + getvalue(pNode->pRightChild) + 1;
+}
 class inputActInfo {
 public:
     int SID;
@@ -746,7 +761,7 @@ int menuShow()
     int a,b;
     while (true)
     {
-        cout << "学生信息管理系统\n\n\n选择你的用户类型\n1.学生\n2.班主任\n3.辅导员\n4.遍历二叉树" << endl<<endl;
+        cout << "学生信息管理系统\n\n选择你的用户类型\n\t1.学生\n\t2.班主任\n\t3.辅导员\n\t4.二叉树" << endl<<endl;
         cin >> a;
         system("cls");
         if (a == 1)
@@ -919,7 +934,7 @@ int menuShow()
             cout << "遍历二叉树结点（仅输出学号姓名）" << endl;
             while (true)
             {
-                cout << "01.前序\n02.中序\n03.后序\n04.返回" << endl;
+                cout << "01.前序\n02.中序\n03.后序\n04.统计结点数\n00.返回" << endl;
                 cin >> b;
                 if(b==1)
                 {
@@ -932,6 +947,10 @@ int menuShow()
                 else if (b == 3)
                 {
                     return 99;
+                }
+                else if (b == 4)
+                {
+                    return 96;
                 }
                 else if (b == 0)
                 {
@@ -1394,6 +1413,11 @@ void choose(int input, AVLTree* A)
     }
 
 //遍历
+    if (input == 96)
+    {
+        int a = A->getvalue(A->pRoot);
+        cout << "二叉树共有结点" << a <<"个" <<  endl;
+    }
     if (input == 97)
     {
         (*A).Preorder((*A).pRoot);
